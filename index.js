@@ -3,16 +3,21 @@ var numberList = [];
 
 function addNumber() {
     var intNumber = +document.getElementById("intNumber").value;
-
-    numberList.push(intNumber);
+    
+    if (document.getElementById("intNumber").value == "") {
+        alert("Vui lòng nhập số vào mảng!!");
+    } else {
+        numberList.push(intNumber);
+    }
 
     document.getElementById("number-list").innerHTML = numberList;   
 }
 
-// 1/ Tổng các số dương trong mảng - DONE
+// 1/ Tổng các số dương trong mảng - DONE 
 function calc1() {
     var sum = 0;
-    
+    var positiveList = [];
+
     if (numberList == null || numberList.length ==0) {
         alert("Vui lòng nhập số vào mảng!!");
         return;
@@ -20,15 +25,28 @@ function calc1() {
 
     for(var i=0; i < numberList.length; i++){
         if(numberList[i]>0){
-            sum = numberList[i] + sum;
-            document.getElementById("result1").innerHTML ="Tổng các số dương trong mảng là: " + sum;
+            positiveList.push(numberList[i]); 
+            // document.getElementById("result4").innerHTML = positiveList;
+        }  
+    }
+
+    if (positiveList == undefined || positiveList.length == 0) {
+        document.getElementById("mess1").innerHTML = "Không có số dương trong mảng";
+    } else {
+        for(var i=0; i < numberList.length; i++){
+            if(numberList[i]>0){
+                sum = numberList[i] + sum;
+            }
         }
+        document.getElementById("mess1").innerHTML = "";
+        document.getElementById("result1").innerHTML ="Tổng các số dương trong mảng là: " + sum;
     }
 }
 
 // 2/ Đếm có bao nhiêu số dương trong mảng - DONE
 function calc2() {
     var count = 0;
+    var positiveList = [];
 
     if (numberList == null || numberList.length ==0) {
         alert("Vui lòng nhập số vào mảng!!");
@@ -37,9 +55,21 @@ function calc2() {
 
     for(var i=0; i < numberList.length; i++){
         if(numberList[i]>0){
-            count = count + 1;
-            document.getElementById("result2").innerHTML ="Số lượng số dương trong mảng là: " + count;
+            positiveList.push(numberList[i]); 
+            // document.getElementById("result4").innerHTML = positiveList;
+        }  
+    }
+
+    if (positiveList == undefined || positiveList.length == 0) {
+        document.getElementById("mess2").innerHTML = "Không có số dương trong mảng";
+    } else {
+        for(var i=0; i < numberList.length; i++){
+            if(numberList[i]>0){
+                count = count+1;
+            }
         }
+        document.getElementById("mess2").innerHTML = "";
+        document.getElementById("result2").innerHTML ="Số lượng số dương trong mảng là: " + count;
     }
 }   
 
@@ -55,7 +85,7 @@ function calc3() {
     for(var i=0; i < numberList.length; i++){
         if(numberList[i] <= min){
             min = numberList[i];
-            document.getElementById("result3").innerHTML ="Số nhỏ nhẩt trong mảng là: " + min;
+            document.getElementById("result3").innerHTML ="Số nhỏ nhất trong mảng là: " + min;
         } 
     }
 }
@@ -77,7 +107,7 @@ function calc4(){
         }  
     }
 
-    if (positiveList == null || positiveList.length == 0) {
+    if (positiveList == undefined || positiveList.length == 0) {
         document.getElementById("mess4").innerHTML = "Không có số dương trong mảng";
     } else {
         min = positiveList[0];
@@ -89,7 +119,7 @@ function calc4(){
             }
         }
         document.getElementById("mess4").innerHTML = "";
-        document.getElementById("result4").innerHTML = min;
+        document.getElementById("result4").innerHTML = "Số dương nhỏ nhất trong mảng là: " + min;
     }
 }
 
@@ -113,7 +143,7 @@ function calc5() {
     }
 }
 
-// 6/ Đổi chỗ -- NOT DONE
+// 6/ Đổi chỗ -- DONE
 function calc6() {
     var local1 = +document.getElementById("index1").value;
     var local2 = +document.getElementById("index2").value;   
@@ -138,7 +168,7 @@ function calc6() {
         }
     }
 
-    console.log(newNumberList);
+    document.getElementById("result6").innerHTML ="Dãy số sau khi đổi chỗ: " + newNumberList;
 }
 
 // 7/ Sắp xếp mảng theo thứ tự tăng dần -- DONE
@@ -165,9 +195,42 @@ function calc7() {
 
 }
 
-// 8/ Tìm số nguyên tố đầu tiên trong mảng. Nếu mảng không có số nguyên tố thì trả về – 1. -- NOT DONE
+// 8/ Tìm số nguyên tố đầu tiên trong mảng. Nếu mảng không có số nguyên tố thì trả về – 1. -- DONE
+// function calc8() {
+//     var result = "Số nguyên tố đầu tiên trong mảng: ";
+
+//     if (numberList == null || numberList.length ==0) {
+//         alert("Vui lòng nhập số vào mảng!!");
+//         return;
+//     }
+
+//     for(i=0; i < numberList.length; i++){
+//             if(numberList[i] < 2) {
+//                 continue;
+//             } else {
+//                 if (Math.sqrt(numberList[i]) < 2) {
+//                     document.getElementById("result8").innerHTML = result + numberList[i];
+//                     return;
+//                 } else {
+//                     for(k=2; k <= Math.sqrt(numberList[i]); k++){
+//                         if(numberList[i] % k === 0){
+//                             break;
+//                         }
+//                         if(k == Math.floor(Math.sqrt(numberList[i]))) {
+//                             document.getElementById("result8").innerHTML = result + numberList[i];
+//                             return;
+//                         }     
+//                     }
+//                 }      
+//             }
+//     }
+//     document.getElementById("result8").innerHTML = result + -1;
+// }
+
 function calc8() {
     var result = "Số nguyên tố đầu tiên trong mảng: ";
+    var result1 = "Trong mảng không có số nguyên tố, trả về giá trị mặc định là: ";
+    var count = 0;
 
     if (numberList == null || numberList.length ==0) {
         alert("Vui lòng nhập số vào mảng!!");
@@ -184,17 +247,17 @@ function calc8() {
                 } else {
                     for(k=2; k <= Math.sqrt(numberList[i]); k++){
                         if(numberList[i] % k === 0){
-                            break;
+                            count++;
                         }
-                        if(k == Math.floor(Math.sqrt(numberList[i]))) {
-                            document.getElementById("result8").innerHTML = result + numberList[i];
-                            return;
-                        }     
-                    }
-                }      
+                    }   
+                    if(count == 0){
+                        document.getElementById("result8").innerHTML = result + numberList[i];
+                        return;
+                    }      
+                }
             }
-    }
-    document.getElementById("result8").innerHTML = result + -1;
+    }        
+    document.getElementById("result8").innerHTML = result1 + -1;
 }
 
 // 9/ Nhập thêm 1 mảng số thực, tìm xem trong mảng có bao nhiêu số nguyên? - DONE
