@@ -12,6 +12,11 @@ function addNumber() {
 // 1/ Tổng các số dương trong mảng - DONE
 function calc1() {
     var sum = 0;
+    
+    if (numberList == null || numberList.length ==0) {
+        alert("Vui lòng nhập số vào mảng!!");
+        return;
+    }
 
     for(var i=0; i < numberList.length; i++){
         if(numberList[i]>0){
@@ -25,6 +30,11 @@ function calc1() {
 function calc2() {
     var count = 0;
 
+    if (numberList == null || numberList.length ==0) {
+        alert("Vui lòng nhập số vào mảng!!");
+        return;
+    }
+
     for(var i=0; i < numberList.length; i++){
         if(numberList[i]>0){
             count = count + 1;
@@ -37,6 +47,11 @@ function calc2() {
 function calc3() {
     var min = numberList[0];
 
+    if (numberList == null || numberList.length ==0) {
+        alert("Vui lòng nhập số vào mảng!!");
+        return;
+    }
+
     for(var i=0; i < numberList.length; i++){
         if(numberList[i] <= min){
             min = numberList[i];
@@ -45,30 +60,48 @@ function calc3() {
     }
 }
 
-// 4/ Tìm số dương nhỏ nhất trong mảng -- NOT DONE
+// 4/ Tìm số dương nhỏ nhất trong mảng -- DONE
 
-for(var i=0; i < numberList.length; i++){
-    if(numberList[i]>0){
-        positiveList.push(numberList[i]); 
-        document.getElementById("result4").innerHTML = positiveList;
+function calc4(){
+    var positiveList = [];
+
+    if (numberList == null || numberList.length ==0) {
+        alert("Vui lòng nhập số vào mảng!!");
+        return;
     }
-}
-console.log(positiveList);   
 
-for(var i=0; i < numberList.length; i++){
-    for(var k=0; k < positiveList.length; k++){
-        if(positiveList[k] <= min){
-            min = positiveList[k];
-            console.log(min);
-            document.getElementById("result4").innerHTML = min;
+    for(var i=0; i < numberList.length; i++){
+        if(numberList[i]>0){
+            positiveList.push(numberList[i]); 
+            // document.getElementById("result4").innerHTML = positiveList;
+        }  
+    }
+
+    if (positiveList == null || positiveList.length == 0) {
+        document.getElementById("mess4").innerHTML = "Không có số dương trong mảng";
+    } else {
+        min = positiveList[0];
+
+        for(var k=1; k < positiveList.length; k++){
+            if(positiveList[k] <= min){
+                min = positiveList[k];
+                console.log(min);
+            }
         }
+        document.getElementById("mess4").innerHTML = "";
+        document.getElementById("result4").innerHTML = min;
     }
 }
 
 // 5/ Tìm số chẵn cuối cùng trong mảng, nếu ko có số chẵn thì trả về -1 -- DONE
 function calc5() {
     var lastEvenNumber;
-    
+
+    if (numberList == null || numberList.length ==0) {
+        alert("Vui lòng nhập số vào mảng!!");
+        return;
+    }
+
     for(var i=0; i < numberList.length; i++){
         if(numberList[i] % 2 !== 0){
             document.getElementById("result5").innerHTML ="Trong mảng không có số chẵn, trả về giá trị mặc định là: " + -1;
@@ -82,28 +115,38 @@ function calc5() {
 
 // 6/ Đổi chỗ -- NOT DONE
 function calc6() {
-    var index1 = +document.getElementById("index1").value;
-    var index2 = +document.getElementById("index2").value;   
-    var newNumberList = [];
-    var temp;
+    var local1 = +document.getElementById("index1").value;
+    var local2 = +document.getElementById("index2").value;   
+    var newNumberList = new Array(numberList.length);
+    var index1 = local1 -1;
+    var index2 = local2 -1;
 
-    console.log(index1, index2);
-    for(i = index1; i < numberList.length; i++) {
-        if(i == index1){
-            temp = numberList[index1];
-            numberList[index1] = numberList[index2];
-            numberList[index2] = temp;
-            newNumberList.push(numberList[i]);
-            break;
-        }    
+    if (numberList == null || numberList.length ==0) {
+        alert("Vui lòng nhập số vào mảng!!");
+        return;
     }
-    document.getElementById("result6").innerHTML = newNumberList;
+
+    for(i=0; i < numberList.length; i++){
+        if(i !== index1 && i !== index2){
+            newNumberList[i] = numberList[i];         
+        } else {
+            if (i === index1) {
+                newNumberList[index1] = numberList[index2];         
+            } else {
+                newNumberList[index2] = numberList[index1];         
+            }
+        }
+    }
+
+    console.log(newNumberList);
 }
 
 // 7/ Sắp xếp mảng theo thứ tự tăng dần -- DONE
 function calc7() {
-
-    var sortAZ = false;
+    if (numberList == null || numberList.length ==0) {
+        alert("Vui lòng nhập số vào mảng!!");
+        return;
+    }
 
     for(var i=0; i < numberList.length; i++){
         if(numberList[i] < numberList[i+1]){
@@ -124,7 +167,34 @@ function calc7() {
 
 // 8/ Tìm số nguyên tố đầu tiên trong mảng. Nếu mảng không có số nguyên tố thì trả về – 1. -- NOT DONE
 function calc8() {
+    var result = "Số nguyên tố đầu tiên trong mảng: ";
 
+    if (numberList == null || numberList.length ==0) {
+        alert("Vui lòng nhập số vào mảng!!");
+        return;
+    }
+
+    for(i=0; i < numberList.length; i++){
+            if(numberList[i] < 2) {
+                continue;
+            } else {
+                if (Math.sqrt(numberList[i]) < 2) {
+                    document.getElementById("result8").innerHTML = result + numberList[i];
+                    return;
+                } else {
+                    for(k=2; k <= Math.sqrt(numberList[i]); k++){
+                        if(numberList[i] % k === 0){
+                            break;
+                        }
+                        if(k == Math.floor(Math.sqrt(numberList[i]))) {
+                            document.getElementById("result8").innerHTML = result + numberList[i];
+                            return;
+                        }     
+                    }
+                }      
+            }
+    }
+    document.getElementById("result8").innerHTML = result + -1;
 }
 
 // 9/ Nhập thêm 1 mảng số thực, tìm xem trong mảng có bao nhiêu số nguyên? - DONE
@@ -132,6 +202,11 @@ function calc9() {
     var count = 0;
     
     var isInt = false;
+
+    if (numberList == null || numberList.length ==0) {
+        alert("Vui lòng nhập số vào mảng!!");
+        return;
+    }
 
     for(var i=0; i < numberList.length; i++){
         if(Number.isInteger(numberList[i]) == true){
@@ -150,6 +225,11 @@ function calc10() {
     var countPositive = 0;
     var countNegative = 0;
     
+    if (numberList == null || numberList.length ==0) {
+        alert("Vui lòng nhập số vào mảng!!");
+        return;
+    }
+
     for(var i=0; i < numberList.length; i++){
         if(numberList[i] > 0){
             countPositive = countPositive + 1;
