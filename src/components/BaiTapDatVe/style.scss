@@ -1,0 +1,93 @@
+body {
+    background:  black !important
+}
+
+.title {
+    color: rgba(238, 125, 32, 0.836);
+    display: block;
+}
+
+.title1 {
+    color: rgba(255, 255, 255, 0.897);
+    display: block;
+}
+
+.content {
+    color: rgba(255, 255, 255, 0.897);
+    display: block;
+}
+
+.screen {
+    background-color: rgb(241, 176, 77);
+    height: 20px;
+    width: 90%;
+    margin: auto 20px 10px auto;
+    border-radius: 3px;
+    box-shadow: 0 10px 17px rgb(255 255 255 / 70%);
+}
+
+.seat {
+    width: 50px;
+    height: 50px;
+    color: yellow;
+    display: inline-block;
+    text-align: center;
+    line-height: 50px;
+}
+
+.chair-icon {
+    width: 30px!important;
+    height: 30px!important;
+    margin: 0px!important;
+}
+
+.chair-infor {
+    display: inline-block;
+    color: white;
+    margin: 0px
+}
+
+.chair {
+    width: 50px;
+    height: 50px;
+    display: inline-block;
+    text-align: center;
+    line-height: 50px;
+    margin-left: 10px;
+    margin-top: 10px;
+    border-radius: 6px;
+
+    &.number {
+        background-color: transparent;
+        color: yellow;
+    }
+
+    &.booked {
+        background-color: rgb(212, 138, 0);
+    }
+
+    &.available {
+        background-color: rgb(201, 194, 194);
+    }
+
+    &.selected {
+        background-color: rgb(28, 143, 28);
+
+    }
+}
+
+.font-header {
+    color: white;
+    text-align: center;
+}
+
+.font-body {
+    color: rgb(212, 138, 0);
+    font-weight: 900;
+    text-align: center;
+}
+
+.font-remove  {
+    color: red;
+    text-align: center;
+}
