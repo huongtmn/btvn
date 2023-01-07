@@ -54,32 +54,45 @@ class RegisterForm extends Component {
 
         for(let i in this.props.studentList) {
             if (this.state.values.studentId == this.props.studentList[i].studentId) {
-                alert("Student ID is existing. Please input another ID!");
+                alert("Student ID does exist. Please input another ID!");
                 return isExisted = true;
             } 
         }     
         
         if(!isExisted) {
+            alert(`Student ID ${this.state.values.studentId} is created!`);
             this.props.dispatch({
                 type: "ADD_STUDENT",
                 payload: this.state.values,
             });
-        }
+        } 
+
+        this.setState({values: ""});
     };
 
     handleUpdate = (event) => {
         event.preventDefault();
-
+        let isChanged = false;
         const isValid = event.target.checkValidity();
 
         if(!isValid) {
             return;
         }
 
-        this.props.dispatch({
-            type: "UPDATE_STUDENT",
-            payload: this.state.values,
-        });
+        for(let i in this.props.studentList) {
+            if (JSON.stringify(this.state.values) == JSON.stringify(this.props.studentList[i])) {
+                alert("No change has been saved!");
+                return isChanged = true;
+            } 
+        }  
+
+        if(!isChanged) {
+            alert("Change has been saved!");
+            this.props.dispatch({
+                type: "UPDATE_STUDENT",
+                payload: this.state.values,
+            });
+        }
     }
 
     handleBlur = (event) => {
@@ -108,10 +121,10 @@ class RegisterForm extends Component {
     }
 
     static getDerivedStateFromProps(nextProps, currentState) {
-        console.log({
-            nextProps: JSON.parse(JSON.stringify(nextProps)),
-            currentState: JSON.parse(JSON.stringify(currentState)),
-        });
+        // console.log({
+        //     nextProps: JSON.parse(JSON.stringify(nextProps)),
+        //     currentState: JSON.parse(JSON.stringify(currentState)),
+        // });
 
         if(nextProps.selectedStudent && currentState.values.id !== nextProps.selectedStudent.id) {
             currentState.values = nextProps.selectedStudent;
